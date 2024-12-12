@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>CB Toplota - izračun delitve</title>
+    </head>
+
+    <body>
+        <label>Strošek% Naselje:</label> <input type="number" id="cb1" min="0" max="100"> %<br>
+        <label>Strošek% Blok:</label> <input type="number" id="blok" min="0" max="100"> %<br>
+        <!--<label>Delitev za ogrevanje:</label> <input type="number" id="del_o" min="0" max="100"> %<br>-->
+        <label>Delitev za toplo vodo:</label> <input type="number" id="del_tv" min="0" max="100"> %<br>
+        <label>Strošek% ogrevanje:</label> <input type="number" id="str_o" min="0" max="100"> %<br>
+        <label>Strošek% topla voda:</label> <input type="number" id="str_tv" min="0" max="100"> %<br>
+        <span>Delež variabilnih stroškov na računu: </span><span id="delez" min="0" max="100"></span><br>
+        <button type="button" onclick="calculate()">Izračunaj</button>
+        
+    </body>
+    <script>
+        function calculate(){
+            var cb1 = parseFloat(document.getElementById("cb1").value);
+            var blok = parseFloat(document.getElementById("blok").value);
+            var del_tv = parseFloat(document.getElementById("del_tv").value);
+            //var del_o = parseFloat(document.getElementById("del_o").value);
+            var del_o = 100 - del_tv;
+            var str_o = 0;
+            if(del_o > 0){
+              str_o = parseFloat(document.getElementById("str_o").value);
+            }
+            var str_tv = parseFloat(document.getElementById("str_tv").value);
+
+            var res = (cb1 / 100) * (blok / 100) * ((str_o/100) * (del_o/100) + (str_tv/100) * (del_tv/100));
+            res = res * 100;
+            document.getElementById("delez").innerHTML = res + " %";
+        }
+    </script>
+</html>
+
